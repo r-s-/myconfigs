@@ -1,0 +1,24 @@
+[
+	{ "keys": ["j", "j"], "command": "exit_insert_mode",
+	"context":
+	[
+		{ "key": "setting.command_mode", "operand": false },
+		{ "key": "setting.is_widget", "operand": false }
+	]
+	},
+
+    { "keys": [";"], "command": "show_overlay", "args": {"overlay": "command_palette", "text": ":"}, 
+    "context": 
+    [
+    	{"key": "setting.command_mode"}
+    ]
+  	},
+
+ 	{ "keys": [":"], "command": "set_repeat_move_to_character_motion", 
+ 	"context": 
+ 	[
+ 		{"key": "setting.command_mode"}
+ 	]
+ 	},
+ 	{ "keys": ["ctrl+shift+r"], "command": "reveal_in_side_bar"}
+]
