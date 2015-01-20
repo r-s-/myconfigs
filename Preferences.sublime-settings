@@ -1,8 +1,14 @@
 {
-	"color_scheme": "Packages/Color Scheme - Default/iPlastic.tmTheme",
-	"font_size": 13,
+	"auto_complete_delay": 25,
+	"font_size": 9,
+	"hot_exit": false,
 	"ignored_packages":
 	[
 	],
-	"vintage_start_in_command_mode": true
+	"margin": 0,
+	"remember_open_files": false,
+	"tab_size": 2,
+	"translate_tabs_to_spaces": true,
+	"vintage_start_in_command_mode": true,
+	"word_wrap": true
 }
