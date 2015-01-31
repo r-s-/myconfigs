@@ -52,6 +52,8 @@ nnoremap <Tab>j <C-W><C-J>
 nnoremap <Tab>k <C-W><C-K>
 nnoremap <Tab>l <C-W><C-L>
 nnoremap <Tab>h <C-W><C-H>
+nnoremap <Tab>- <C-W>n
+nnoremap <Tab>= <C-W>v
 
 "More standard splits
 set splitbelow
@@ -62,3 +64,11 @@ nnoremap <C-N> :set invrnu<cr>
 " keep the visual selection active after indenting.
 vmap > >gv
 vmap < <gv
+
+hi EasyMotionTarget ctermbg=gray ctermfg=green
+hi EasyMotionShade  ctermbg=gray ctermfg=blue
+
+hi EasyMotionTarget2First ctermbg=gray ctermfg=red
+hi EasyMotionTarget2Second ctermbg=gray ctermfg=lightred
+map <Space> <Plug>(easymotion-prefix)
+
