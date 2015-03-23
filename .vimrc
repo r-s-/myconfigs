@@ -1,8 +1,19 @@
+"Ryan Selk's .vimrc
+"I don't suggest you copy this, but instead find the
+"commands which work for you.
+
+"Pathogen for easy plugin managment
 call pathogen#infect()
 call pathogen#helptags()
 
+set tabstop=2 shiftwidth=2 expandtab
+
+"relative numbers by default
 set number
 set relativenumber
+
+"Allow toggle between regular and relative numbers
+nnoremap <C-N> :set invrnu<cr>
 
 filetype on
 filetype plugin indent on
@@ -59,9 +70,7 @@ nnoremap <Tab>= <C-W>v
 set splitbelow
 set splitright
 
-nnoremap <C-N> :set invrnu<cr>
-
-" keep the visual selection active after indenting.
+"keep the visual selection active after indenting.
 vmap > >gv
 vmap < <gv
 
@@ -72,3 +81,27 @@ hi EasyMotionTarget2First ctermbg=gray ctermfg=red
 hi EasyMotionTarget2Second ctermbg=gray ctermfg=lightred
 map <Space> <Plug>(easymotion-prefix)
 
+" Use easymotion for search
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+"save undos
+set undofile                " Save undo's after file closes
+set undodir=$HOME/.vim/undo " where to save undo histories
+set undolevels=1000         " How many undos
+set undoreload=10000        " number of lines to save for undo
+
+"colors for text suggestion
+highlight Pmenu ctermfg=black ctermbg=white
+highlight PmenuSel ctermfg=red  ctermbg=grey
+
+"allow backspace to delete in insert mode
+set backspace=2
+
+"set colorscheme to hybrid
+colorscheme hybrid
+
+"change the line numbers to be brighter
+highlight LineNr ctermfg=grey
