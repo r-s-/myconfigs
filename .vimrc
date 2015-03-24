@@ -65,6 +65,9 @@ nnoremap <Tab>l <C-W><C-L>
 nnoremap <Tab>h <C-W><C-H>
 nnoremap <Tab>- <C-W>n
 nnoremap <Tab>= <C-W>v
+nnoremap <Tab>f- <C-W>f
+nnoremap <Tab>f= :vertical wincmd f<CR>
+nnoremap <Tab>gf <C-W>gf
 
 "More standard splits
 set splitbelow
@@ -105,3 +108,4 @@ colorscheme hybrid
 
 "change the line numbers to be brighter
 highlight LineNr ctermfg=grey
+hi Visual ctermbg=20
