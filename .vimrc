@@ -2,6 +2,9 @@
 "I don't suggest you copy this, but instead find the
 "commands which work for you.
 
+"set leader to space
+let mapleader = "\<Space>"
+
 "Pathogen for easy plugin managment
 call pathogen#infect()
 call pathogen#helptags()
@@ -12,6 +15,8 @@ set tabstop=2 shiftwidth=2 expandtab
 set number
 set relativenumber
 
+set autoread
+
 "Allow toggle between regular and relative numbers
 nnoremap <C-N> :set invrnu<cr>
 
@@ -19,6 +24,7 @@ filetype on
 filetype plugin indent on
 au BufNewFile,BufRead *.rs set filetype=rust
 au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 syntax on
 
@@ -32,7 +38,8 @@ syntax on
 
 "swap
 :set noswapfile
-"Switch ; and : keys to save keystrokes
+
+"Switch ; and : keys
 nnoremap ; :
 nnoremap : ;
 
@@ -40,34 +47,21 @@ nnoremap : ;
 inoremap { {}<Left>
 inoremap {<CR> {<CR>}<Esc>O
 inoremap {{ {
-inoremap {} {}
-
-"Tabing to change window
-nnoremap <tab><tab> <c-w>w
-
-"Highlight single character when line surpases 80 characters
-highlight ColorColumn ctermbg=green
-call matchadd('ColorColumn', '\%81v', 100)
 
 "Ctrl-p for fuzzy finding
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:ctrlp_by_filename = 0
 let g:ctrlp_regexp = 1 "use .* for wildcard
+nnoremap <Leader>p :CtrlP<CR>
 
 "NERDTree shortcuts
 :command NE NERDTree
 :command NF NERDTreeFind
 
 "Navigate splits with vim-line commands
-nnoremap <Tab>j <C-W><C-J>
-nnoremap <Tab>k <C-W><C-K>
-nnoremap <Tab>l <C-W><C-L>
-nnoremap <Tab>h <C-W><C-H>
+map <Tab> <C-W>
 nnoremap <Tab>- <C-W>n
 nnoremap <Tab>= <C-W>v
-nnoremap <Tab>f- <C-W>f
-nnoremap <Tab>f= :vertical wincmd f<CR>
-nnoremap <Tab>gf <C-W>gf
 
 "More standard splits
 set splitbelow
@@ -77,6 +71,7 @@ set splitright
 vmap > >gv
 vmap < <gv
 
+" Easy motion settings
 hi EasyMotionTarget ctermbg=gray ctermfg=green
 hi EasyMotionShade  ctermbg=gray ctermfg=blue
 
@@ -88,9 +83,7 @@ map <Space> <Plug>(easymotion-prefix)
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
 
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
-"save undos
+"save undo history
 set undofile                " Save undo's after file closes
 set undodir=$HOME/.vim/undo " where to save undo histories
 set undolevels=1000         " How many undos
@@ -100,12 +93,22 @@ set undoreload=10000        " number of lines to save for undo
 highlight Pmenu ctermfg=black ctermbg=white
 highlight PmenuSel ctermfg=red  ctermbg=grey
 
+"change the line numbers to be brighter
+highlight LineNr ctermfg=grey
+hi Visual ctermbg=20
+
 "allow backspace to delete in insert mode
 set backspace=2
 
 "set colorscheme to hybrid
 colorscheme hybrid
 
-"change the line numbers to be brighter
-highlight LineNr ctermfg=grey
-hi Visual ctermbg=20
+
+"Nvim terminal commands
+if has('nvim')
+  tnoremap <Leader>e <C-\><C-n> 
+  tnoremap <Esc> <C-\><C-n> 
+  nnoremap <Leader>t :tabe<cr>
+  nnoremap <Leader>e :term<cr>
+endif
+
