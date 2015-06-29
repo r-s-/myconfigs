@@ -14,7 +14,6 @@ set tabstop=2 shiftwidth=2 expandtab
 "relative numbers by default
 set number
 set relativenumber
-
 set autoread
 
 "Allow toggle between regular and relative numbers
@@ -22,8 +21,6 @@ nnoremap <C-N> :set invrnu<cr>
 
 filetype on
 filetype plugin indent on
-au BufNewFile,BufRead *.rs set filetype=rust
-au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 syntax on
@@ -43,16 +40,11 @@ syntax on
 nnoremap ; :
 nnoremap : ;
 
-"Auto Add braces ({{ to add single brace)
-inoremap { {}<Left>
-inoremap {<CR> {<CR>}<Esc>O
-inoremap {{ {
-
 "Ctrl-p for fuzzy finding
 set runtimepath^=~/.vim/bundle/ctrlp.vim
-let g:ctrlp_by_filename = 0
-let g:ctrlp_regexp = 1 "use .* for wildcard
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store,*/vendor
 nnoremap <Leader>p :CtrlP<CR>
+nnoremap <leader>l :CtrlPTag<cr>
 
 "NERDTree shortcuts
 :command NE NERDTree
@@ -60,12 +52,11 @@ nnoremap <Leader>p :CtrlP<CR>
 
 "Navigate splits with vim-line commands
 map <Tab> <C-W>
-nnoremap <Tab>- <C-W>n
-nnoremap <Tab>= <C-W>v
 
 "More standard splits
 set splitbelow
 set splitright
+set scrolloff=3
 
 "keep the visual selection active after indenting.
 vmap > >gv
@@ -74,11 +65,9 @@ vmap < <gv
 " Easy motion settings
 hi EasyMotionTarget ctermbg=gray ctermfg=green
 hi EasyMotionShade  ctermbg=gray ctermfg=blue
-
 hi EasyMotionTarget2First ctermbg=gray ctermfg=red
 hi EasyMotionTarget2Second ctermbg=gray ctermfg=lightred
 map <Space> <Plug>(easymotion-prefix)
-
 " Use easymotion for search
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
@@ -103,6 +92,13 @@ set backspace=2
 "set colorscheme to hybrid
 colorscheme hybrid
 
+set t_Co=256
+" colorscheme PaperColor
+
+vmap <Leader>z :call I18nTranslateString()<CR>
+
+autocmd BufNewFile,BufRead Gemfile set filetype=ruby
+autocmd BufNewFile,BufRead Vagrantfile set filetype=ruby
 
 "Nvim terminal commands
 if has('nvim')
@@ -112,3 +108,8 @@ if has('nvim')
   nnoremap <Leader>e :term<cr>
 endif
 
+if executable('ag')
+  set grepprg=ag\ --nogroup\ --nocolor
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_use_caching = 0
+endif
