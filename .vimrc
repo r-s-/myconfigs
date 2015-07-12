@@ -43,12 +43,21 @@ nnoremap : ;
 "Ctrl-p for fuzzy finding
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store,*/vendor
-nnoremap <Leader>p :CtrlP<CR>
+nnoremap <leader>p :CtrlP<CR>
 nnoremap <leader>l :CtrlPTag<cr>
+nnoremap <leader>o :CtrlPBuffer<cr>
+nnoremap <leader>st :SyntasticToggleMode<cr>
+nnoremap <leader>ne :NERDTree<cr>
+nnoremap <leader>nf :NERDTreeFind<cr>
 
-"NERDTree shortcuts
-:command NE NERDTree
-:command NF NERDTreeFind
+"Git keys
+nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>gc :Gcommit<cr>
+nnoremap <leader>gp :Gpush<cr>
+nnoremap <leader>gb :Gblame<cr>
+
+" Search keys
+nnoremap <leader>f :Ag 
 
 "Navigate splits with vim-line commands
 map <Tab> <C-W>
@@ -90,10 +99,9 @@ hi Visual ctermbg=20
 set backspace=2
 
 "set colorscheme to hybrid
-colorscheme hybrid
-
 set t_Co=256
-" colorscheme PaperColor
+" colorscheme hybrid 
+colo seoul256
 
 vmap <Leader>z :call I18nTranslateString()<CR>
 
@@ -113,3 +121,16 @@ if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
   let g:ctrlp_use_caching = 0
 endif
+
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_wq = 0
+
+set nocursorline
+set nocursorcolumn
+set scrolljump=5
+set lazyredraw
