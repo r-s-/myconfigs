@@ -1,11 +1,9 @@
 "Ryan Selk's .vimrc
-"I don't suggest you copy this, but instead find the
-"commands which work for you.
 
 "set leader to space
 let mapleader = "\<Space>"
 
-"Pathogen for easy plugin managment
+"Pathogen for plugin managment
 call pathogen#infect()
 call pathogen#helptags()
 
@@ -42,7 +40,8 @@ nnoremap : ;
 
 "Ctrl-p for fuzzy finding
 set runtimepath^=~/.vim/bundle/ctrlp.vim
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store,*/vendor
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store,*/vendor,*/tmp/*,*.so,*.swp,*.zip    
+
 nnoremap <leader>p :CtrlP<CR>
 nnoremap <leader>l :CtrlPTag<cr>
 nnoremap <leader>o :CtrlPBuffer<cr>
@@ -55,6 +54,7 @@ nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>gc :Gcommit<cr>
 nnoremap <leader>gp :Gpush<cr>
 nnoremap <leader>gb :Gblame<cr>
+nnoremap <leader>gd :Gdiff<cr>
 
 " Search keys
 nnoremap <leader>f :Ag 
@@ -103,7 +103,7 @@ set t_Co=256
 " colorscheme hybrid 
 colo seoul256
 
-vmap <Leader>z :call I18nTranslateString()<CR>
+vmap <Leader>in :call I18nTranslateString()<CR>
 
 autocmd BufNewFile,BufRead Gemfile set filetype=ruby
 autocmd BufNewFile,BufRead Vagrantfile set filetype=ruby
@@ -122,10 +122,6 @@ if executable('ag')
   let g:ctrlp_use_caching = 0
 endif
 
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_wq = 0
@@ -134,3 +130,7 @@ set nocursorline
 set nocursorcolumn
 set scrolljump=5
 set lazyredraw
+
+let g:ctrlp_match_window = 'top,order:btt,min:1,max:14,results:12'
+let g:ctrlp_show_hidden = 1
+
