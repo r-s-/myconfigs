@@ -1,11 +1,30 @@
 "Ryan Selk's .vimrc
-"I don't suggest you copy this, but instead find the
-"commands which work for you.
 
 "set leader to space
 let mapleader = "\<Space>"
 
-"Pathogen for easy plugin managment
+"custom leader commands
+nnoremap <leader>p :CtrlP<CR>
+nnoremap <leader>l :CtrlPTag<cr>
+nnoremap <leader>o :CtrlPBuffer<cr>
+nnoremap <leader>st :SyntasticToggleMode<cr>
+nnoremap <leader>ne :NERDTree<cr>
+nnoremap <leader>nf :NERDTreeFind<cr>
+nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>gc :Gcommit<cr>
+nnoremap <leader>gp :Gpush<cr>
+nnoremap <leader>gb :Gblame<cr>
+nnoremap <leader>gd :Gdiff<cr>
+nnoremap <leader>bb :ls<CR>:buffer<Space>
+nnoremap <leader>t :tabe<cr>
+nnoremap <leader>, :bn<cr>
+nnoremap <leader>. :bp<cr>
+nnoremap <leader>c :bd<cr>
+nnoremap <leader>ggs :GitGutterToggle<cr>:GitGutterLineHighlightsToggle<cr>
+nnoremap <leader>f :Ag 
+nnoremap <leader>r :e!<cr>
+
+"Pathogen for plugin managment
 call pathogen#infect()
 call pathogen#helptags()
 
@@ -15,6 +34,7 @@ set tabstop=2 shiftwidth=2 expandtab
 set number
 set relativenumber
 set autoread
+set hidden
 
 "Allow toggle between regular and relative numbers
 nnoremap <C-N> :set invrnu<cr>
@@ -26,15 +46,15 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 syntax on
 
 "map jj to switch out of insert mode
-:imap jj <Esc>
+imap jj <Esc>
 
 "Auto indentation
-:set cindent
-:set shiftwidth=2
-:set autoindent
+set cindent
+set shiftwidth=2
+set autoindent
 
 "swap
-:set noswapfile
+set noswapfile
 
 "Switch ; and : keys
 nnoremap ; :
@@ -42,21 +62,17 @@ nnoremap : ;
 
 "Ctrl-p for fuzzy finding
 set runtimepath^=~/.vim/bundle/ctrlp.vim
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store,*/vendor
-nnoremap <Leader>p :CtrlP<CR>
-nnoremap <leader>l :CtrlPTag<cr>
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store,*/vendor,*/tmp/*,*.so,*.swp,*.zip    
 
-"NERDTree shortcuts
-:command NE NERDTree
-:command NF NERDTreeFind
+let g:gitgutter_enabled = 0
+let g:gitgutter_highlight_lines = 0
 
-"Navigate splits with vim-line commands
 map <Tab> <C-W>
 
 "More standard splits
 set splitbelow
 set splitright
-set scrolloff=3
+set scrolloff=2
 
 "keep the visual selection active after indenting.
 vmap > >gv
@@ -67,7 +83,7 @@ hi EasyMotionTarget ctermbg=gray ctermfg=green
 hi EasyMotionShade  ctermbg=gray ctermfg=blue
 hi EasyMotionTarget2First ctermbg=gray ctermfg=red
 hi EasyMotionTarget2Second ctermbg=gray ctermfg=lightred
-map <Space> <Plug>(easymotion-prefix)
+map \ <Plug>(easymotion-prefix)
 " Use easymotion for search
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
@@ -90,12 +106,11 @@ hi Visual ctermbg=20
 set backspace=2
 
 "set colorscheme to hybrid
-colorscheme hybrid
-
 set t_Co=256
-" colorscheme PaperColor
+colorscheme hybrid 
+" colo seoul256
 
-vmap <Leader>z :call I18nTranslateString()<CR>
+vmap <Leader>in :call I18nTranslateString()<CR>
 
 autocmd BufNewFile,BufRead Gemfile set filetype=ruby
 autocmd BufNewFile,BufRead Vagrantfile set filetype=ruby
@@ -104,8 +119,7 @@ autocmd BufNewFile,BufRead Vagrantfile set filetype=ruby
 if has('nvim')
   tnoremap <Leader>e <C-\><C-n> 
   tnoremap <Esc> <C-\><C-n> 
-  nnoremap <Leader>t :tabe<cr>
-  nnoremap <Leader>e :term<cr>
+  nnoremap <leader>e :term<cr>
 endif
 
 if executable('ag')
@@ -113,3 +127,19 @@ if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
   let g:ctrlp_use_caching = 0
 endif
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_wq = 0
+
+set nocursorline
+set nocursorcolumn
+set scrolljump=5
+set lazyredraw
+
+let g:ctrlp_match_window = 'top,order:btt,min:1,max:14,results:12'
+let g:ctrlp_show_hidden = 1
+
+" set foldmethod=indent
+" set foldlevel=1
+" set foldclose=all
