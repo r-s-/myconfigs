@@ -1,10 +1,14 @@
 "Ryan Selk's .vimrc
 
+"Pathogen for plugin managment
+call pathogen#infect()
+call pathogen#helptags()
+
 "set leader to space
 let mapleader = "\<Space>"
 
 "custom leader commands
-nnoremap <leader>p :CtrlP<CR>
+nnoremap <leader>p :CtrlP<cr>
 nnoremap <leader>l :CtrlPTag<cr>
 nnoremap <leader>o :CtrlPBuffer<cr>
 nnoremap <leader>st :SyntasticToggleMode<cr>
@@ -15,7 +19,7 @@ nnoremap <leader>gc :Gcommit<cr>
 nnoremap <leader>gp :Gpush<cr>
 nnoremap <leader>gb :Gblame<cr>
 nnoremap <leader>gd :Gdiff<cr>
-nnoremap <leader>bb :ls<CR>:buffer<Space>
+nnoremap <leader>bb :ls<cr>:buffer<Space>
 nnoremap <leader>t :tabe<cr>
 nnoremap <leader>, :bn<cr>
 nnoremap <leader>. :bp<cr>
@@ -23,11 +27,9 @@ nnoremap <leader>c :bd<cr>
 nnoremap <leader>ggs :GitGutterToggle<cr>:GitGutterLineHighlightsToggle<cr>
 nnoremap <leader>f :Ag 
 nnoremap <leader>r :e!<cr>
+nnoremap <leader>in :call I18nTranslateString()<cr>
 
-"Pathogen for plugin managment
-call pathogen#infect()
-call pathogen#helptags()
-
+" tab settings
 set tabstop=2 shiftwidth=2 expandtab
 
 "relative numbers by default
@@ -42,7 +44,6 @@ nnoremap <C-N> :set invrnu<cr>
 filetype on
 filetype plugin indent on
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
 syntax on
 
 "map jj to switch out of insert mode
@@ -64,9 +65,11 @@ nnoremap : ;
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store,*/vendor,*/tmp/*,*.so,*.swp,*.zip    
 
+" Git gitter default settings
 let g:gitgutter_enabled = 0
 let g:gitgutter_highlight_lines = 0
 
+" Tab for easier window managment
 map <Tab> <C-W>
 
 "More standard splits
@@ -83,7 +86,8 @@ hi EasyMotionTarget ctermbg=gray ctermfg=green
 hi EasyMotionShade  ctermbg=gray ctermfg=blue
 hi EasyMotionTarget2First ctermbg=gray ctermfg=red
 hi EasyMotionTarget2Second ctermbg=gray ctermfg=lightred
-map \ <Plug>(easymotion-prefix)
+
+map <Space><Space> <Plug>(easymotion-prefix)
 " Use easymotion for search
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
@@ -110,7 +114,6 @@ set t_Co=256
 colorscheme hybrid 
 " colo seoul256
 
-vmap <Leader>in :call I18nTranslateString()<CR>
 
 autocmd BufNewFile,BufRead Gemfile set filetype=ruby
 autocmd BufNewFile,BufRead Vagrantfile set filetype=ruby
@@ -132,14 +135,13 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_wq = 0
 
+"These settings can speed up vim
 set nocursorline
 set nocursorcolumn
 set scrolljump=5
 set lazyredraw
 
+"Custom Ctrl-p settings
 let g:ctrlp_match_window = 'top,order:btt,min:1,max:14,results:12'
 let g:ctrlp_show_hidden = 1
 
-" set foldmethod=indent
-" set foldlevel=1
-" set foldclose=all
