@@ -28,6 +28,8 @@ nnoremap <leader>ggs :GitGutterToggle<cr>:GitGutterLineHighlightsToggle<cr>
 nnoremap <leader>f :Ag 
 nnoremap <leader>r :e!<cr>
 nnoremap <leader>in :call I18nTranslateString()<cr>
+nnoremap <leader>gu :GundoToggle<cr>
+nnoremap <leader>ki :call GitStoryId()<cr>
 
 " tab settings
 set tabstop=2 shiftwidth=2 expandtab
@@ -37,6 +39,11 @@ set number
 set relativenumber
 set autoread
 set hidden
+
+"Auto indentation
+set cindent
+set shiftwidth=2
+set autoindent
 
 "Allow toggle between regular and relative numbers
 nnoremap <C-N> :set invrnu<cr>
@@ -48,11 +55,6 @@ syntax on
 
 "map jj to switch out of insert mode
 imap jj <Esc>
-
-"Auto indentation
-set cindent
-set shiftwidth=2
-set autoindent
 
 "swap
 set noswapfile
@@ -145,3 +147,7 @@ set lazyredraw
 let g:ctrlp_match_window = 'top,order:btt,min:1,max:14,results:12'
 let g:ctrlp_show_hidden = 1
 
+" Custom functions
+function! GitStoryId()
+  normal 3j3WywggpI[#A] 
+endfunction
