@@ -1,38 +1,64 @@
 "Ryan Selk's .vimrc
 
-"set leader to space
-let mapleader = "\<Space>"
-
 "Pathogen for plugin managment
 call pathogen#infect()
 call pathogen#helptags()
 
+"set leader to space
+let mapleader = "\<Space>"
+
+"custom leader commands
+nnoremap <leader>p :CtrlP<cr>
+nnoremap <leader>l :CtrlPTag<cr>
+nnoremap <leader>o :CtrlPBuffer<cr>
+nnoremap <leader>st :SyntasticToggleMode<cr>
+nnoremap <leader>ne :NERDTree<cr>
+nnoremap <leader>nf :NERDTreeFind<cr>
+nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>gc :Gcommit<cr>
+nnoremap <leader>gp :Gpush<cr>
+nnoremap <leader>gb :Gblame<cr>
+nnoremap <leader>gd :Gdiff<cr>
+nnoremap <leader>bb :ls<cr>:buffer<Space>
+nnoremap <leader>t :tabe<cr>
+nnoremap <leader>1 :bn<cr>
+nnoremap <leader>0 :bp<cr>
+nnoremap <leader>c :bd<cr>
+nnoremap <leader>ggs :GitGutterToggle<cr>:GitGutterLineHighlightsToggle<cr>
+nnoremap <leader>f :Ag 
+nnoremap <leader>r :reg<cr>
+nnoremap <leader>in :call I18nTranslateString()<cr>
+nnoremap <leader>gu :GundoToggle<cr>
+nnoremap <leader>ki :call GitStoryId()<cr>
+nnoremap <leader>so :call ToggleSyntax()<cr>
+
+" tab settings
 set tabstop=2 shiftwidth=2 expandtab
 
 "relative numbers by default
 set number
 set relativenumber
 set autoread
+set hidden
+
+"Auto indentation
+set cindent
+set shiftwidth=2
+set autoindent
 
 "Allow toggle between regular and relative numbers
 nnoremap <C-N> :set invrnu<cr>
 
 filetype on
 filetype plugin indent on
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
+" autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 syntax on
 
 "map jj to switch out of insert mode
-:imap jj <Esc>
-
-"Auto indentation
-:set cindent
-:set shiftwidth=2
-:set autoindent
+imap jj <Esc>
 
 "swap
-:set noswapfile
+set noswapfile
 
 "Switch ; and : keys
 nnoremap ; :
@@ -42,30 +68,17 @@ nnoremap : ;
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store,*/vendor,*/tmp/*,*.so,*.swp,*.zip    
 
-nnoremap <leader>p :CtrlP<CR>
-nnoremap <leader>l :CtrlPTag<cr>
-nnoremap <leader>o :CtrlPBuffer<cr>
-nnoremap <leader>st :SyntasticToggleMode<cr>
-nnoremap <leader>ne :NERDTree<cr>
-nnoremap <leader>nf :NERDTreeFind<cr>
+" Git gitter default settings
+let g:gitgutter_enabled = 0
+let g:gitgutter_highlight_lines = 0
 
-"Git keys
-nnoremap <leader>gs :Gstatus<cr>
-nnoremap <leader>gc :Gcommit<cr>
-nnoremap <leader>gp :Gpush<cr>
-nnoremap <leader>gb :Gblame<cr>
-nnoremap <leader>gd :Gdiff<cr>
-
-" Search keys
-nnoremap <leader>f :Ag 
-
-"Navigate splits with vim-line commands
+" Tab for easier window managment
 map <Tab> <C-W>
 
 "More standard splits
 set splitbelow
 set splitright
-set scrolloff=3
+set scrolloff=2
 
 "keep the visual selection active after indenting.
 vmap > >gv
@@ -76,7 +89,8 @@ hi EasyMotionTarget ctermbg=gray ctermfg=green
 hi EasyMotionShade  ctermbg=gray ctermfg=blue
 hi EasyMotionTarget2First ctermbg=gray ctermfg=red
 hi EasyMotionTarget2Second ctermbg=gray ctermfg=lightred
-map <Space> <Plug>(easymotion-prefix)
+
+map <Space><Space> <Plug>(easymotion-prefix)
 " Use easymotion for search
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
@@ -100,20 +114,18 @@ set backspace=2
 
 "set colorscheme to hybrid
 set t_Co=256
-" colorscheme hybrid 
-colo seoul256
+colorscheme hybrid 
+" colo seoul256
 
-vmap <Leader>in :call I18nTranslateString()<CR>
 
-autocmd BufNewFile,BufRead Gemfile set filetype=ruby
-autocmd BufNewFile,BufRead Vagrantfile set filetype=ruby
+" autocmd BufNewFile,BufRead Gemfile set filetype=ruby
+" autocmd BufNewFile,BufRead Vagrantfile set filetype=ruby
 
 "Nvim terminal commands
 if has('nvim')
   tnoremap <Leader>e <C-\><C-n> 
   tnoremap <Esc> <C-\><C-n> 
-  nnoremap <Leader>t :tabe<cr>
-  nnoremap <Leader>e :term<cr>
+  nnoremap <leader>e :term<cr>
 endif
 
 if executable('ag')
@@ -126,11 +138,33 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_wq = 0
 
+"These settings can speed up vim
 set nocursorline
 set nocursorcolumn
 set scrolljump=5
 set lazyredraw
 
-let g:ctrlp_match_window = 'top,order:btt,min:1,max:14,results:12'
+"Custom Ctrl-p settings
+let g:ctrlp_match_window = 'top,order:ttb,min:1,max:14,results:12'
 let g:ctrlp_show_hidden = 1
+
+" Custom functions
+function! GitStoryId()
+  normal 3j3WywggpI[#A] 
+endfunction
+
+function ToggleSyntax()
+    if exists("g:syntax_on")
+        syntax off
+    else
+        syntax enable
+    endif
+endfunction
+
+nnoremap <leader>s :call ToggleSyntax()<CR>
+
+set guioptions-=m  "remove menu bar
+set guioptions-=T  "remove toolbar
+set guioptions-=r  "remove right-hand scroll bar
+set guioptions-=L  "remove left-hand scroll bar
 
