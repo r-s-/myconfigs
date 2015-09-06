@@ -21,8 +21,8 @@ nnoremap <leader>gb :Gblame<cr>
 nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>bb :ls<cr>:buffer<Space>
 nnoremap <leader>t :tabe<cr>
-nnoremap <leader>, :bn<cr>
-nnoremap <leader>. :bp<cr>
+nnoremap <leader>0 :bn<cr>
+nnoremap <leader>9 :bp<cr>
 nnoremap <leader>c :bd<cr>
 nnoremap <leader>ggs :GitGutterToggle<cr>:GitGutterLineHighlightsToggle<cr>
 nnoremap <leader>f :Ag 
