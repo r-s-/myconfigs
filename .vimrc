@@ -21,15 +21,17 @@ nnoremap <leader>gb :Gblame<cr>
 nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>bb :ls<cr>:buffer<Space>
 nnoremap <leader>t :tabe<cr>
-nnoremap <leader>0 :bn<cr>
-nnoremap <leader>9 :bp<cr>
+
 nnoremap <leader>c :bd<cr>
 nnoremap <leader>ggs :GitGutterToggle<cr>:GitGutterLineHighlightsToggle<cr>
-nnoremap <leader>f :Ag 
-nnoremap <leader>r :e!<cr>
+nnoremap <leader>0 :bn<cr>
+nnoremap <leader>9 :bp<cr>
+nnoremap <leader>1 :bn<cr>
+nnoremap <leader>r :reg<cr>
 nnoremap <leader>in :call I18nTranslateString()<cr>
 nnoremap <leader>gu :GundoToggle<cr>
 nnoremap <leader>ki :call GitStoryId()<cr>
+nnoremap <leader>so :call ToggleSyntax()<cr>
 
 " tab settings
 set tabstop=2 shiftwidth=2 expandtab
@@ -117,8 +119,8 @@ colorscheme hybrid
 " colo seoul256
 
 
-autocmd BufNewFile,BufRead Gemfile set filetype=ruby
-autocmd BufNewFile,BufRead Vagrantfile set filetype=ruby
+" autocmd BufNewFile,BufRead Gemfile set filetype=ruby
+" autocmd BufNewFile,BufRead Vagrantfile set filetype=ruby
 
 "Nvim terminal commands
 if has('nvim')
@@ -144,10 +146,25 @@ set scrolljump=5
 set lazyredraw
 
 "Custom Ctrl-p settings
-let g:ctrlp_match_window = 'top,order:btt,min:1,max:14,results:12'
+let g:ctrlp_match_window = 'top,order:ttb,min:1,max:14,results:12'
 let g:ctrlp_show_hidden = 1
 
 " Custom functions
 function! GitStoryId()
   normal 3j3WywggpI[#A] 
 endfunction
+
+function ToggleSyntax()
+    if exists("g:syntax_on")
+        syntax off
+    else
+        syntax enable
+    endif
+endfunction
+
+nnoremap <leader>s :call ToggleSyntax()<CR>
+
+set guioptions-=m  "remove menu bar
+set guioptions-=T  "remove toolbar
+set guioptions-=r  "remove right-hand scroll bar
+set guioptions-=L  "remove left-hand scroll bar
