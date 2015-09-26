@@ -7,8 +7,8 @@ call pathogen#helptags()
 "set leader to space
 let mapleader = "\<Space>"
 
-"custom leader commands
-nnoremap <leader>p :CtrlP<cr>
+"leader commands
+nnoremap <silent> <leader>p :CtrlP<cr>
 nnoremap <leader>l :CtrlPTag<cr>
 nnoremap <leader>o :CtrlPBuffer<cr>
 nnoremap <leader>st :SyntasticToggleMode<cr>
@@ -21,7 +21,6 @@ nnoremap <leader>gb :Gblame<cr>
 nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>bb :ls<cr>:buffer<Space>
 nnoremap <leader>t :tabe<cr>
-
 nnoremap <leader>c :bd<cr>
 nnoremap <leader>ggs :GitGutterToggle<cr>:GitGutterLineHighlightsToggle<cr>
 nnoremap <leader>0 :bn<cr>
@@ -32,6 +31,8 @@ nnoremap <leader>in :call I18nTranslateString()<cr>
 nnoremap <leader>gu :GundoToggle<cr>
 nnoremap <leader>ki :call GitStoryId()<cr>
 nnoremap <leader>so :call ToggleSyntax()<cr>
+
+nnoremap <C-N> :set invrnu<cr>
 
 " tab settings
 set tabstop=2 shiftwidth=2 expandtab
@@ -47,8 +48,9 @@ set cindent
 set shiftwidth=2
 set autoindent
 
+" Smart Case
+set smartcase
 "Allow toggle between regular and relative numbers
-nnoremap <C-N> :set invrnu<cr>
 
 filetype on
 filetype plugin indent on
@@ -73,7 +75,7 @@ set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store,*/vendor,*/tmp/*
 let g:gitgutter_enabled = 0
 let g:gitgutter_highlight_lines = 0
 
-" Tab for easier window managment
+" Tab for window managment
 map <Tab> <C-W>
 
 "More standard splits
@@ -96,6 +98,8 @@ map <Space><Space> <Plug>(easymotion-prefix)
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
 
+set ignorecase
+
 "save undo history
 set undofile                " Save undo's after file closes
 set undodir=$HOME/.vim/undo " where to save undo histories
@@ -114,18 +118,13 @@ hi Visual ctermbg=20
 set backspace=2
 
 "set colorscheme to hybrid
-set t_Co=256
 colorscheme hybrid 
-" colo seoul256
 
-
-" autocmd BufNewFile,BufRead Gemfile set filetype=ruby
-" autocmd BufNewFile,BufRead Vagrantfile set filetype=ruby
-
-"Nvim terminal commands
+"Nvim specific commands
 if has('nvim')
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
   tnoremap <Leader>e <C-\><C-n> 
-  tnoremap <Esc> <C-\><C-n> 
+  tnoremap <Leader>q <C-\><C-n> 
   nnoremap <leader>e :term<cr>
 endif
 
@@ -155,16 +154,16 @@ function! GitStoryId()
 endfunction
 
 function ToggleSyntax()
-    if exists("g:syntax_on")
-        syntax off
-    else
-        syntax enable
-    endif
+  if exists("g:syntax_on")
+    syntax off
+  else
+    syntax enable
+  endif
 endfunction
-
-nnoremap <leader>s :call ToggleSyntax()<CR>
 
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L  "remove left-hand scroll bar
+
+let g:ruby_path="/home/rs/.rvm/rubies/ruby-2.2.3/bin/ruby"
