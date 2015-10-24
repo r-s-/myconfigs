@@ -1,6 +1,6 @@
 "Ryan Selk
 " .nvimrc
-" Intended for Neovim
+" Intended for use with Neovim
 "
 "set leader to space
 let mapleader = "\<Space>"
@@ -52,6 +52,9 @@ autocmd WinEnter term://* startinsert
 
 "Easy Motion Search
 map <Space><Space> <Plug>(easymotion-prefix)
+
+" Y behave like D or C
+nnoremap Y y$
 
 "Search and Replace Settings
 set ignorecase 
@@ -121,49 +124,45 @@ set lazyredraw
 
 "vim-plug for easy cross machine plugin handling
 call plug#begin('~/.nvim/plugged')
-  Plug 'rhysd/clever-f.vim'
-  Plug 'rking/ag.vim'
-  Plug 'scrooloose/nerdtree'
-  Plug 'tpope/vim-commentary'
-  Plug 'easymotion/vim-easymotion'
+
+  " Language Specific
   Plug 'elixir-lang/vim-elixir'
-  Plug 'tpope/vim-endwise'
-  Plug 'vim-ruby/vim-ruby'
-  Plug 'kshenoy/vim-signature'
-  Plug 'kien/rainbow_parentheses.vim'
   Plug 'pangloss/vim-javascript'
   Plug 'leafgarland/typescript-vim'
   Plug 'kchmck/vim-coffee-script'
-  Plug 'AndrewRadev/sideways.vim'
   Plug 'ap/vim-css-color'
+  Plug 'vim-ruby/vim-ruby'
+
+  " Navigation
+  Plug 'rhysd/clever-f.vim'
+  Plug 'scrooloose/nerdtree'
+
+  " Added Functionality
+  Plug 'rking/ag.vim'
+  Plug 'easymotion/vim-easymotion'
+  Plug 'tpope/vim-endwise'
+  Plug 'kshenoy/vim-signature'
+  Plug 'AndrewRadev/sideways.vim'
   Plug 'tpope/vim-surround'
-  Plug 'w0ng/vim-hybrid'
   Plug 'terryma/vim-multiple-cursors'
-  " Plug 'nanotech/jellybeans.vim'
-  " Plug 'DrSpatula/vim-buddy'
-  " Plug 'vim-scripts/moria'
-  " Plug 'penicolas/simplon.vim'
-  Plug 'w0ng/vim-hybrid'
-
   Plug 'tpope/vim-fugitive'
-  let g:fugitive_git_executable = 'LANG=en_US.UTF-8 git'
-
+    let g:fugitive_git_executable = 'LANG=en_US.UTF-8 git'
   Plug 'junegunn/vim-peekaboo'
-  let g:peekaboo_delay = 600
-
+    let g:peekaboo_delay = 600
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
   Plug 'junegunn/fzf.vim'
-  let g:fzf_action = {
-        \ 'ctrl-s': 'split',
-        \ 'ctrl-v': 'vsplit'
-        \ }
+    let g:fzf_action = {
+          \ 'ctrl-s': 'split',
+          \ 'ctrl-v': 'vsplit'
+          \ }
+    let g:fzf_layout = { 'up': '~20%' }
 
-  let g:fzf_layout = { 'up': '~20%' }
+  " Style
+  Plug 'w0ng/vim-hybrid'
+  Plug 'tpope/vim-commentary'
+  Plug 'kien/rainbow_parentheses.vim'
 
 call plug#end()
-
-" Y behave like D or C
-nnoremap Y y$
 
 " Custom Functions
 function! GitStoryId()
