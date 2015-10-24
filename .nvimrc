@@ -50,11 +50,18 @@ imap jj <Esc>
 " =============================================================================
 " Neovim Terminal Remappings
 " =============================================================================
-tnoremap <Esc> <C-\><C-n> 
-tnoremap <C-W>h <C-\><C-n><C-w>h
-tnoremap <C-W>j <C-\><C-n><C-w>j
-tnoremap <C-W>k <C-\><C-n><C-w>k
-tnoremap <C-W>l <C-\><C-n><C-w>l
+tnoremap <Esc><Esc> <C-\><C-n> 
+tnoremap <C-H> <C-\><C-n><C-w>h
+tnoremap <C-J> <C-\><C-n><C-w>j
+tnoremap <C-K> <C-\><C-n><C-w>k
+tnoremap <C-L> <C-\><C-n><C-w>l
+
+nnoremap <C-H> <C-w>h
+nnoremap <C-J> <C-w>j
+nnoremap <C-K> <C-w>k
+nnoremap <C-L> <C-w>l
+
+
 autocmd WinEnter term://* startinsert
 
 " =============================================================================
