@@ -139,6 +139,11 @@ call plug#begin('~/.nvim/plugged')
   Plug 'tpope/vim-surround'
   Plug 'w0ng/vim-hybrid'
   Plug 'terryma/vim-multiple-cursors'
+  " Plug 'nanotech/jellybeans.vim'
+  " Plug 'DrSpatula/vim-buddy'
+  " Plug 'vim-scripts/moria'
+  " Plug 'penicolas/simplon.vim'
+  Plug 'w0ng/vim-hybrid'
 
   Plug 'tpope/vim-fugitive'
   let g:fugitive_git_executable = 'LANG=en_US.UTF-8 git'
@@ -153,12 +158,9 @@ call plug#begin('~/.nvim/plugged')
         \ 'ctrl-v': 'vsplit'
         \ }
 
-call plug#end()
+  let g:fzf_layout = { 'up': '~20%' }
 
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+call plug#end()
 
 " Y behave like D or C
 nnoremap Y y$
@@ -191,4 +193,12 @@ function! SearchVisualSelectionWithAg() range
   let &clipboard = old_clipboard
   execute 'Ag' selection
 endfunction
+
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
+set background=dark
+colorscheme hybrid
 

@@ -1,30 +1,20 @@
-# Path to your oh-my-zsh installation.
-export ZSH=/home/rs/.oh-my-zsh
-
+export ZSH=/Users/ryanselk/.oh-my-zsh
 ZSH_THEME="robbyrussell"
-plugins=(git last-working-dir ruby)
 
-
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
-# export MANPATH="/usr/local/man:$MANPATH"
-
+export UPDATE_ZSH_DAYS=13
+# ENABLE_CORRECTION="true"
+# COMPLETION_WAITING_DOTS="true"
+plugins=(git)
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 source $ZSH/oh-my-zsh.sh
 
-
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nvim'
-else
-  export EDITOR='nvim'
-fi
+export EDITOR='nvim'
 
 bindkey -v
 bindkey -M viins 'jj' vi-cmd-mode
 alias v=nvim
 export PATH="$HOME/.rbenv/bin:$PATH"
-alias tmux='tmux -2'
-
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
+eval "$(rbenv init -)"
 
 # Fast shortcuts
 alias c='clear'
@@ -57,3 +47,7 @@ fancy-ctrl-z () {
 }
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
+
+alias ppj='python -m json.tool'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
