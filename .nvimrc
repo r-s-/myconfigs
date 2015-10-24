@@ -1,11 +1,13 @@
+scriptencoding utf-8
+
 "Ryan Selk
 " .nvimrc
 " Intended for use with Neovim
-"
-"set leader to space
-let mapleader = "\<Space>"
 
-"Leader commands
+" =============================================================================
+" General Key Remappings
+" =============================================================================
+let mapleader = "\<Space>"
 nnoremap <silent> <leader>p :Files<cr>
 nnoremap <silent> <leader>o :Buffers<CR>
 nnoremap <silent> <leader>ne :NERDTree<cr>
@@ -41,8 +43,13 @@ nnoremap <silent> <silent> K :call SearchWordWithAg()<CR>
 vnoremap <silent> <silent> K :call SearchVisualSelectionWithAg()<CR>
 nnoremap <silent> <leader>gl :Commits<CR>
 nnoremap <silent> <leader>ga :BCommits<CR>
+nnoremap ; :
+nnoremap : ;
+imap jj <Esc>
 
-"Neovim Terminal Settings
+" =============================================================================
+" Neovim Terminal Remappings
+" =============================================================================
 tnoremap <Esc> <C-\><C-n> 
 tnoremap <C-W>h <C-\><C-n><C-w>h
 tnoremap <C-W>j <C-\><C-n><C-w>j
@@ -50,96 +57,92 @@ tnoremap <C-W>k <C-\><C-n><C-w>k
 tnoremap <C-W>l <C-\><C-n><C-w>l
 autocmd WinEnter term://* startinsert
 
-"Easy Motion Search
-map <Space><Space> <Plug>(easymotion-prefix)
+" =============================================================================
+" Vim Preferences
+" =============================================================================
 
 " Y behave like D or C
 nnoremap Y y$
 
-"Search and Replace Settings
+" Search and Replace
 set ignorecase 
 set smartcase 
 set gdefault 
 
-"Switch ; and : keys
-nnoremap ; :
-nnoremap : ;
-
-" tab settings
+" Tab
 set tabstop=2 shiftwidth=2 expandtab
 
-"relative numbers by default
+" Numbering
 set number
 set relativenumber
 set autoread
 set hidden
 
-"Auto indentation
+" Indentation
 set cindent
 set shiftwidth=2
 set autoindent
-
 filetype on
 filetype plugin indent on
 syntax on
 
-"map jj to switch out of insert mode
-imap jj <Esc>
-
-"swap
+" Swap
 set noswapfile
 
-"More standard splits
+" Window Splitting
 set splitbelow
 set splitright
 set scrolloff=2
 
-"keep the visual selection active after indenting.
+" Keep the visual selection active after indenting.
 vmap > >gv
 vmap < <gv
 
-"save undo history
+"Undo history
 set undofile                " Save undo's after file closes
 set undodir=$HOME/.vim/undo " where to save undo histories
 set undolevels=1000         " How many undos
 set undoreload=10000        " number of lines to save for undo
 
-"colors for text suggestion
+" Allow backspace to delete in insert mode
+set backspace=2
+
+" =============================================================================
+" Style
+" =============================================================================
+
+set t_Co=256
+" Autocomplete 
 highlight Pmenu ctermfg=black ctermbg=white
 highlight PmenuSel ctermfg=red  ctermbg=grey
 
-"change the line numbers to be brighter
+" Line Numbers
 highlight LineNr ctermfg=grey
 hi Visual ctermbg=20
 
-"allow backspace to delete in insert mode
-set backspace=2
-set t_Co=256
-
-"These settings can speed up vim
+" =============================================================================
+" Performance
+" =============================================================================
 set nocursorline
 set nocursorcolumn
 set scrolljump=5
 set lazyredraw
 
-"vim-plug for easy cross machine plugin handling
+" =============================================================================
+" Vim-Plug
+" =============================================================================
 call plug#begin('~/.nvim/plugged')
-
-  " Language Specific
   Plug 'elixir-lang/vim-elixir'
   Plug 'pangloss/vim-javascript'
   Plug 'leafgarland/typescript-vim'
   Plug 'kchmck/vim-coffee-script'
   Plug 'ap/vim-css-color'
   Plug 'vim-ruby/vim-ruby'
-
-  " Navigation
   Plug 'rhysd/clever-f.vim'
   Plug 'scrooloose/nerdtree'
-
-  " Added Functionality
   Plug 'rking/ag.vim'
   Plug 'easymotion/vim-easymotion'
+    map <Space><Space> <Plug>(easymotion-prefix)
   Plug 'tpope/vim-endwise'
   Plug 'kshenoy/vim-signature'
   Plug 'AndrewRadev/sideways.vim'
@@ -157,14 +160,15 @@ call plug#begin('~/.nvim/plugged')
           \ }
     let g:fzf_layout = { 'up': '~20%' }
 
-  " Style
   Plug 'w0ng/vim-hybrid'
   Plug 'tpope/vim-commentary'
   Plug 'kien/rainbow_parentheses.vim'
-
 call plug#end()
 
+" =============================================================================
 " Custom Functions
+" =============================================================================
+
 function! GitStoryId()
   normal 3j3WywggpI[#A] 
 endfunction
