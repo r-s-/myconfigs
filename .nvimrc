@@ -1,64 +1,66 @@
-let g:startify_custom_header = [
-      \ '                                                 ',
-      \ '     .---------------------------------.         ',
-      \ '     |  .---------------------------.  |         ',
-      \ '     |[]|                           |[]|         ',
-      \ '     |  |                           |  |         ',
-      \ '     |  |         Ryan Selk         |  |         ',
-      \ '     |  |                           |  |         ',
-      \ '     |  |                           |  |         ',
-      \ '     |  |                           |  |         ',
-      \ '     |  |                           |  |         ',
-      \ '     |  |                           |  |         ',
-      \ '     |  |                           |  |         ',
-      \ '     |  `---------------------------l  |         ',
-      \ '     |      __________________ _____   |         ',
-      \ '     |     |   ___            |     |  |         ',
-      \ '     |     |  |   |           |     |  |         ',
-      \ '     |     |  |   |           |     |  |         ',
-      \ '     |     |  |   |           |     |  |         ',
-      \ '     |     |  |___|           |     |  |         ',
-      \ '     \_____|__________________|_____|__|         ',
-      \ '                                                 ',
-      \ '                                                 ']
-let g:startify_list_order = ['dir']
-set nocompatible
-
+"Ryan Selk
+" .nvimrc
+" Intended for Neovim
+"
 "set leader to space
 let mapleader = "\<Space>"
 
-"custom leader commands
-nnoremap <leader>p :FZF<cr>
-nnoremap <leader>l :CtrlPTag<cr>
-nnoremap <leader>o :CtrlPBuffer<cr>
-nnoremap <leader>st :SyntasticToggleMode<cr>
-nnoremap <leader>ne :NERDTree<cr>
-nnoremap <leader>nf :NERDTreeFind<cr>
-nnoremap <leader>gs :Gstatus<cr>
-nnoremap <leader>gc :Gcommit<cr>
+"Leader commands
+nnoremap <silent> <leader>p :Files<cr>
+nnoremap <silent> <leader>o :Buffers<CR>
+nnoremap <silent> <leader>ne :NERDTree<cr>
+nnoremap <silent> <leader>nf :NERDTreeFind<cr>
+nnoremap <silent> <leader>gs :Gstatus<cr>
+nnoremap <silent> <leader>gc :Gcommit<cr>
 nnoremap <leader>gp :Gpush<cr>
-nnoremap <leader>gb :Gblame<cr>
-nnoremap <leader>gd :Gdiff<cr>
-nnoremap <leader>bb :ls<cr>:buffer<Space>
-nnoremap <leader>t :tabe<cr>
-nnoremap <leader>1 :bn<cr>
-nnoremap <leader>0 :bp<cr>
-nnoremap <leader>c :bd<cr>
-nnoremap <leader>f :Ag 
-nnoremap <leader>r :reg<cr>
-nnoremap <leader>in :call I18nTranslateString()<cr>
-nnoremap <leader>gu :GundoToggle<cr>
-nnoremap <leader>ki :call GitStoryId()<cr>
-nnoremap <leader>so :call ToggleSyntax()<cr>
-nnoremap <leader>ln :set invrnu<cr>
+nnoremap <silent> <leader>gb :Gblame<cr>
+nnoremap <silent> <leader>gd :Gdiff<cr>
+nnoremap <silent> <leader>bb :ls<cr>:buffer<Space>
+nnoremap <silent> <leader>t :tabe<cr>
+nnoremap <silent> <leader>1 :bn<cr>
+nnoremap <silent> <leader>0 :bp<cr>
+nnoremap <silent> <leader>c :bd<cr>
+nnoremap <silent> <leader>ag :Ag 
+nnoremap <silent> <leader>r :reg<cr>
+nnoremap <silent> <leader>ki :call GitStoryId()<cr>
+nnoremap <silent> <leader>so :call ToggleSyntax()<cr>
+nnoremap <silent> <leader>ln :set invrnu<cr>
+nnoremap <silent> <leader>sl :SidewaysLeft<cr>
+nnoremap <silent> <leader>sr :SidewaysRight<cr>
+nnoremap <silent> <leader>h :nohlsearch<CR><Esc>
+nnoremap <silent> <leader>e :term<cr>
+nnoremap <silent> <leader>fb :Buffers<CR>
+nnoremap <silent> <leader>fl :BLines<CR>
+nnoremap <silent> <leader>fL :Lines<CR>
+nnoremap <silent> <leader>ft :BTags<CR>
+nnoremap <silent> <leader>fT :Tags<CR>
+nnoremap <silent> <leader>; :Commands<CR>
+nnoremap <silent> <leader>? :History<CR>
+nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
+nnoremap <silent> <silent> K :call SearchWordWithAg()<CR>
+vnoremap <silent> <silent> K :call SearchVisualSelectionWithAg()<CR>
+nnoremap <silent> <leader>gl :Commits<CR>
+nnoremap <silent> <leader>ga :BCommits<CR>
+
+"Neovim Terminal Settings
+tnoremap <Esc> <C-\><C-n> 
+tnoremap <C-W>h <C-\><C-n><C-w>h
+tnoremap <C-W>j <C-\><C-n><C-w>j
+tnoremap <C-W>k <C-\><C-n><C-w>k
+tnoremap <C-W>l <C-\><C-n><C-w>l
+autocmd WinEnter term://* startinsert
+
+"Easy Motion Search
+map <Space><Space> <Plug>(easymotion-prefix)
+
+"Search and Replace Settings
+set ignorecase 
+set smartcase 
+set gdefault 
 
 "Switch ; and : keys
 nnoremap ; :
 nnoremap : ;
-
-"neovim terminal emulation
-tnoremap <Esc> <C-\><C-n> 
-nnoremap <leader>e :term<cr>
 
 " tab settings
 set tabstop=2 shiftwidth=2 expandtab
@@ -84,9 +86,6 @@ imap jj <Esc>
 "swap
 set noswapfile
 
-" Tab for easier window managment
-map <Tab> <C-W>
-
 "More standard splits
 set splitbelow
 set splitright
@@ -95,16 +94,6 @@ set scrolloff=2
 "keep the visual selection active after indenting.
 vmap > >gv
 vmap < <gv
-
-" Easy motion settings
-hi EasyMotionTarget ctermbg=gray ctermfg=green
-hi EasyMotionShade  ctermbg=gray ctermfg=blue
-hi EasyMotionTarget2First ctermbg=gray ctermfg=red
-hi EasyMotionTarget2Second ctermbg=gray ctermfg=lightred
-
-map <Space><Space> <Plug>(easymotion-prefix)
-map  / <Plug>(easymotion-sn)
-omap / <Plug>(easymotion-tn)
 
 "save undo history
 set undofile                " Save undo's after file closes
@@ -122,12 +111,7 @@ hi Visual ctermbg=20
 
 "allow backspace to delete in insert mode
 set backspace=2
-
 set t_Co=256
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_wq = 0
 
 "These settings can speed up vim
 set nocursorline
@@ -135,7 +119,51 @@ set nocursorcolumn
 set scrolljump=5
 set lazyredraw
 
-" Custom functions
+"vim-plug for easy cross machine plugin handling
+call plug#begin('~/.nvim/plugged')
+  Plug 'rhysd/clever-f.vim'
+  Plug 'rking/ag.vim'
+  Plug 'scrooloose/nerdtree'
+  Plug 'tpope/vim-commentary'
+  Plug 'easymotion/vim-easymotion'
+  Plug 'elixir-lang/vim-elixir'
+  Plug 'tpope/vim-endwise'
+  Plug 'vim-ruby/vim-ruby'
+  Plug 'kshenoy/vim-signature'
+  Plug 'kien/rainbow_parentheses.vim'
+  Plug 'pangloss/vim-javascript'
+  Plug 'leafgarland/typescript-vim'
+  Plug 'kchmck/vim-coffee-script'
+  Plug 'AndrewRadev/sideways.vim'
+  Plug 'ap/vim-css-color'
+  Plug 'tpope/vim-surround'
+  Plug 'w0ng/vim-hybrid'
+  Plug 'terryma/vim-multiple-cursors'
+
+  Plug 'tpope/vim-fugitive'
+  let g:fugitive_git_executable = 'LANG=en_US.UTF-8 git'
+
+  Plug 'junegunn/vim-peekaboo'
+  let g:peekaboo_delay = 600
+
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+  Plug 'junegunn/fzf.vim'
+  let g:fzf_action = {
+        \ 'ctrl-s': 'split',
+        \ 'ctrl-v': 'vsplit'
+        \ }
+
+call plug#end()
+
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
+" Y behave like D or C
+nnoremap Y y$
+
+" Custom Functions
 function! GitStoryId()
   normal 3j3WywggpI[#A] 
 endfunction
@@ -148,27 +176,19 @@ function ToggleSyntax()
   endif
 endfunction
 
-"vim-plug for easy cross machine plugin handling
-call plug#begin('~/.nvim/plugged')
-  Plug 'rhysd/clever-f.vim'
-  Plug 'rking/ag.vim'
-  Plug 'scrooloose/nerdtree'
-  Plug 'tpope/vim-commentary'
-  Plug 'easymotion/vim-easymotion'
-  Plug 'elixir-lang/vim-elixir'
-  Plug 'tpope/vim-endwise'
-  Plug 'tpope/vim-fugitive'
-  Plug 'w0ng/vim-hybrid'
-  Plug 'terryma/vim-multiple-cursors'
-  Plug 'junegunn/vim-peekaboo'
-  Plug 'vim-ruby/vim-ruby'
-  Plug 'kshenoy/vim-signature'
-  Plug 'mhinz/vim-startify'
+function! SearchWordWithAg()
+  execute 'Ag' expand('<cword>')
+endfunction
 
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-  let g:fzf_action = {
-        \ 'ctrl-s': 'split',
-        \ 'ctrl-v': 'vsplit'
-        \ }
+function! SearchVisualSelectionWithAg() range
+  let old_reg = getreg('"')
+  let old_regtype = getregtype('"')
+  let old_clipboard = &clipboard
+  set clipboard&
+  normal! ""gvy
+  let selection = getreg('"')
+  call setreg('"', old_reg, old_regtype)
+  let &clipboard = old_clipboard
+  execute 'Ag' selection
+endfunction
 
-call plug#end()
