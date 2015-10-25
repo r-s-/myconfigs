@@ -2,8 +2,9 @@ scriptencoding utf-8
 
 "Ryan Selk
 " .nvimrc
+"
 " Intended for use with Neovim
-
+runtime macros/matchit.vim
 " =============================================================================
 " General Key Remappings
 " =============================================================================
@@ -51,15 +52,7 @@ imap jj <Esc>
 " Neovim Terminal Remappings
 " =============================================================================
 tnoremap <Esc><Esc> <C-\><C-n> 
-tnoremap <C-H> <C-\><C-n><C-w>h
-tnoremap <C-J> <C-\><C-n><C-w>j
-tnoremap <C-K> <C-\><C-n><C-w>k
-tnoremap <C-L> <C-\><C-n><C-w>l
-
-nnoremap <C-H> <C-w>h
-nnoremap <C-J> <C-w>j
-nnoremap <C-K> <C-w>k
-nnoremap <C-L> <C-w>l
+map <Tab> <C-W>
 
 
 autocmd WinEnter term://* startinsert
@@ -170,45 +163,62 @@ call plug#begin('~/.nvim/plugged')
   Plug 'w0ng/vim-hybrid'
   Plug 'tpope/vim-commentary'
   Plug 'kien/rainbow_parentheses.vim'
-call plug#end()
 
-" =============================================================================
-" Custom Functions
-" =============================================================================
+  Plug 'kana/vim-textobj-user'
+  Plug 'kana/vim-textobj-indent'
+  Plug 'nelstrom/vim-textobj-rubyblock'
+  Plug 'bling/vim-airline'
+  " {{{
+  let g:airline_left_sep  = '▓▒░'
+  let g:airline_right_sep = '░▒▓'
+  let g:airline_section_z = '%2p%% %2l/%L:%2v'
+  let g:airline#extensions#syntastic#enabled = 0
+  let g:airline#extensions#whitespace#enabled = 0
+  let g:airline_exclude_preview = 1
 
-function! GitStoryId()
-  normal 3j3WywggpI[#A] 
-endfunction
+  Plug 'idanarye/vim-merginal'
+  " {{{
+  nnoremap <leader>gm :MerginalToggle<CR>
+  " }}}
+  call plug#end()
 
-function ToggleSyntax()
-  if exists("g:syntax_on")
-    syntax off
-  else
-    syntax enable
-  endif
-endfunction
+  " =============================================================================
+  " Custom Functions
+  " =============================================================================
 
-function! SearchWordWithAg()
-  execute 'Ag' expand('<cword>')
-endfunction
+  function! GitStoryId()
+    normal 3j3WywggpI[#A] 
+  endfunction
 
-function! SearchVisualSelectionWithAg() range
-  let old_reg = getreg('"')
-  let old_regtype = getregtype('"')
-  let old_clipboard = &clipboard
-  set clipboard&
-  normal! ""gvy
-  let selection = getreg('"')
-  call setreg('"', old_reg, old_regtype)
-  let &clipboard = old_clipboard
-  execute 'Ag' selection
-endfunction
+  function ToggleSyntax()
+    if exists("g:syntax_on")
+      syntax off
+    else
+      syntax enable
+    endif
+  endfunction
 
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+  function! SearchWordWithAg()
+    execute 'Ag' expand('<cword>')
+  endfunction
 
-set background=dark
-colorscheme hybrid
+  function! SearchVisualSelectionWithAg() range
+    let old_reg = getreg('"')
+    let old_regtype = getregtype('"')
+    let old_clipboard = &clipboard
+    set clipboard&
+    normal! ""gvy
+    let selection = getreg('"')
+    call setreg('"', old_reg, old_regtype)
+    let &clipboard = old_clipboard
+    execute 'Ag' selection
+  endfunction
+
+  au VimEnter * RainbowParenthesesToggle
+  au Syntax * RainbowParenthesesLoadRound
+  au Syntax * RainbowParenthesesLoadSquare
+  au Syntax * RainbowParenthesesLoadBraces
+
+  set background=dark
+  colorscheme hybrid
 
