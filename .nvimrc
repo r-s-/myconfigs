@@ -51,7 +51,6 @@ imap jj <Esc>
 " =============================================================================
 " Neovim Terminal Remappings
 " =============================================================================
-tnoremap <Esc><Esc> <C-\><C-n> 
 map <Tab> <C-W>
 
 
@@ -177,9 +176,7 @@ call plug#begin('~/.nvim/plugged')
   let g:airline_exclude_preview = 1
 
   Plug 'idanarye/vim-merginal'
-  " {{{
-  nnoremap <leader>gm :MerginalToggle<CR>
-  " }}}
+    nnoremap <leader>gm :MerginalToggle<CR>
   call plug#end()
 
   " =============================================================================
