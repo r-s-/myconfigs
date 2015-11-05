@@ -44,6 +44,8 @@ nnoremap <silent> <silent> K :call SearchWordWithAg()<CR>
 vnoremap <silent> <silent> K :call SearchVisualSelectionWithAg()<CR>
 nnoremap <silent> <leader>gl :Commits<CR>
 nnoremap <silent> <leader>ga :BCommits<CR>
+nnoremap <silent> <Leader>ws :keeppatterns %s/\s\+$//<CR>
+
 nnoremap ; :
 nnoremap : ;
 imap jj <Esc>
@@ -166,14 +168,14 @@ call plug#begin('~/.nvim/plugged')
   Plug 'kana/vim-textobj-user'
   Plug 'kana/vim-textobj-indent'
   Plug 'nelstrom/vim-textobj-rubyblock'
-  Plug 'bling/vim-airline'
-  " {{{
-  let g:airline_left_sep  = '▓▒░'
-  let g:airline_right_sep = '░▒▓'
-  let g:airline_section_z = '%2p%% %2l/%L:%2v'
-  let g:airline#extensions#syntastic#enabled = 0
-  let g:airline#extensions#whitespace#enabled = 0
-  let g:airline_exclude_preview = 1
+  " Plug 'bling/vim-airline'
+  " " {{{
+  " let g:airline_left_sep  = '▓▒░'
+  " let g:airline_right_sep = '░▒▓'
+  " let g:airline_section_z = '%2p%% %2l/%L:%2v'
+  " let g:airline#extensions#syntastic#enabled = 0
+  " let g:airline#extensions#whitespace#enabled = 0
+  " let g:airline_exclude_preview = 1
 
   Plug 'idanarye/vim-merginal'
     nnoremap <leader>gm :MerginalToggle<CR>
