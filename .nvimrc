@@ -45,6 +45,7 @@ vnoremap <silent> <silent> K :call SearchVisualSelectionWithAg()<CR>
 nnoremap <silent> <leader>gl :Commits<CR>
 nnoremap <silent> <leader>ga :BCommits<CR>
 nnoremap <silent> <Leader>ws :keeppatterns %s/\s\+$//<CR>
+nnoremap <silent> <Leader>on :on<CR>
 
 nnoremap ; :
 nnoremap : ;
@@ -128,7 +129,7 @@ set nocursorline
 set nocursorcolumn
 set scrolljump=5
 set lazyredraw
-
+set re=1
 " =============================================================================
 " Vim-Plug
 " =============================================================================
@@ -221,3 +222,7 @@ call plug#begin('~/.nvim/plugged')
   set background=dark
   colorscheme hybrid
 
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
