@@ -45,7 +45,7 @@ vnoremap <silent> <silent> K :call SearchVisualSelectionWithAg()<CR>
 nnoremap <silent> <leader>gl :Commits<CR>
 nnoremap <silent> <leader>ga :BCommits<CR>
 nnoremap <silent> <Leader>ws :keeppatterns %s/\s\+$//<CR>
-nnoremap <silent> <Leader>on :on<CR>
+" nnoremap <silent> <Leader>ol :on<CR>
 
 
 nnoremap ; :
@@ -87,7 +87,7 @@ set shiftwidth=2
 set autoindent
 filetype on
 filetype plugin indent on
-syntax on
+" syntax on
 
 " Swap
 set noswapfile
@@ -231,3 +231,5 @@ inoremap {      {}<Left>
 inoremap {<CR>  {<CR>}<Esc>O
 inoremap {{     {
 inoremap {}     {}
+
+let g:loaded_matchparen=1
