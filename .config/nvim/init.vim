@@ -142,7 +142,6 @@ call plug#begin('~/.nvim/plugged')
   Plug 'kchmck/vim-coffee-script'
   Plug 'ap/vim-css-color'
   Plug 'vim-ruby/vim-ruby'
-  Plug 'rhysd/clever-f.vim'
   Plug 'scrooloose/nerdtree'
   Plug 'rking/ag.vim'
   Plug 'easymotion/vim-easymotion'
