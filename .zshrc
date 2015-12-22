@@ -1,4 +1,4 @@
-export ZSH=/Users/ryanselk/.oh-my-zsh
+export ZSH=/home/rs/.oh-my-zsh
 ZSH_THEME="robbyrussell"
 
 export UPDATE_ZSH_DAYS=13
@@ -7,19 +7,22 @@ export UPDATE_ZSH_DAYS=13
 plugins=(git)
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 source $ZSH/oh-my-zsh.sh
+export VIMRUNTIME=/home/rs/builds/neovim/runtime
 
 export EDITOR='nvim'
 
 bindkey -v
 bindkey -M viins 'jj' vi-cmd-mode
 alias v=nvim
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+# export PATH="$HOME/.rbenv/bin:$PATH"
+# eval "$(rbenv init -)"
+
+alias tmux='tmux -2'
 
 # Fast shortcuts
-alias c='clear'
-alias r='reset'
-alias q='exit'
+alias c=' clear'
+alias r=' reset'
+alias q=' exit'
 alias vu='vagrant up'
 alias vs='vagrant ssh'
 alias vh='vagrant halt'
@@ -31,6 +34,7 @@ alias gl='glog'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias -- -="cd -"
+alias pys='python -m SimpleHTTPServer 8000'
 
 hash -d kd=~"/Dev/devops/dev_vm/"
 hash -d kw=~"/Dev/vagrant_kudos/kudos/"
@@ -51,3 +55,6 @@ bindkey '^Z' fancy-ctrl-z
 alias ppj='python -m json.tool'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
