@@ -58,6 +58,9 @@ imap jj <Esc>
 " =============================================================================
 map <Tab> <C-W>
 
+"Tmux style maximize
+nnoremap <C-W>m :call MaximizeToggle()<CR>
+ 
 
 autocmd WinEnter term://* startinsert
 
@@ -233,3 +236,15 @@ inoremap {{     {
 inoremap {}     {}
 
 let g:loaded_matchparen=1
+
+
+function! MaximizeToggle()
+  if exists("s:maximize_session")
+    exe "normal \<C-W>="
+    call delete(s:maximize_session)
+    unlet s:maximize_session
+  else
+    let s:maximize_session = tempname()
+    exe "normal \<C-W>_\<C-W>|"
+  endif
+endfunction
