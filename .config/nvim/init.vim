@@ -58,11 +58,6 @@ imap jj <Esc>
 " =============================================================================
 map <Tab> <C-W>
 
-"Tmux style maximize
-nnoremap <silent> <C-W>m :call MaximizeToggle()<CR>
-nnoremap <silent> <C-W>= :call ResetStateCallEqual()<CR>
- 
-
 autocmd WinEnter term://* startinsert
 
 " =============================================================================
@@ -190,6 +185,8 @@ call plug#begin('~/.nvim/plugged')
   Plug 'ryanss/vim-hackernews'
   Plug 'christoomey/vim-tmux-navigator'
 
+  " Rselk is the best
+  Plug 'rselk/vim-max-split'
 
 call plug#end()
 
@@ -239,26 +236,6 @@ inoremap {{     {
 inoremap {}     {}
 
 let g:loaded_matchparen=1
-
-" Maximize splits similar to Tmux
-function! MaximizeToggle()
-  if exists("s:maximize_session")
-    exe "normal! \<C-W>="
-    unlet s:maximize_session
-  else
-    exe "normal! \<C-W>_\<C-W>|"
-    let s:maximize_session = "active"
-  endif
-endfunction
-
-function! ResetStateCallEqual()
-  if exists("s:maximize_session")
-    exe "normal! \<C-W>="
-    unlet s:maximize_session
-  else
-    exe "normal! \<C-W>="
-  endif
-endfunction
 
 " Cursorline on active window
 autocmd VimEnter,WinEnter * call s:active_ui()
