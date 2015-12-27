@@ -45,8 +45,9 @@ vnoremap <silent> <silent> K :call SearchVisualSelectionWithAg()<CR>
 nnoremap <silent> <leader>gl :Commits<CR>
 nnoremap <silent> <leader>ga :BCommits<CR>
 nnoremap <silent> <Leader>ws :keeppatterns %s/\s\+$//<CR>
-" nnoremap <silent> <Leader>ol :on<CR>
 
+" Have . work on visual lines
+vnoremap . :norm.<CR>
 
 nnoremap ; :
 nnoremap : ;
@@ -57,6 +58,10 @@ imap jj <Esc>
 " =============================================================================
 map <Tab> <C-W>
 
+"Tmux style maximize
+nnoremap <silent> <C-W>m :call MaximizeToggle()<CR>
+nnoremap <silent> <C-W>= :call ResetStateCallEqual()<CR>
+ 
 
 autocmd WinEnter term://* startinsert
 
@@ -152,9 +157,10 @@ call plug#begin('~/.nvim/plugged')
   Plug 'tpope/vim-surround'
   Plug 'terryma/vim-multiple-cursors'
   Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-obsession'
     let g:fugitive_git_executable = 'LANG=en_US.UTF-8 git'
   Plug 'junegunn/vim-peekaboo'
-    let g:peekaboo_delay = 600
+    let g:peekaboo_delay = 800
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
   Plug 'junegunn/fzf.vim'
     let g:fzf_action = {
@@ -183,6 +189,7 @@ call plug#begin('~/.nvim/plugged')
     nnoremap <leader>gm :MerginalToggle<CR>
   Plug 'ryanss/vim-hackernews'
   Plug 'christoomey/vim-tmux-navigator'
+
 
 call plug#end()
 
@@ -224,7 +231,7 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
 set background=dark
-colorscheme hybrid
+colorscheme hybrid 
 
 inoremap {      {}<Left>
 inoremap {<CR>  {<CR>}<Esc>O
@@ -232,3 +239,35 @@ inoremap {{     {
 inoremap {}     {}
 
 let g:loaded_matchparen=1
+
+" Maximize splits similar to Tmux
+function! MaximizeToggle()
+  if exists("s:maximize_session")
+    exe "normal! \<C-W>="
+    unlet s:maximize_session
+  else
+    exe "normal! \<C-W>_\<C-W>|"
+    let s:maximize_session = "active"
+  endif
+endfunction
+
+function! ResetStateCallEqual()
+  if exists("s:maximize_session")
+    exe "normal! \<C-W>="
+    unlet s:maximize_session
+  else
+    exe "normal! \<C-W>="
+  endif
+endfunction
+
+" Cursorline on active window
+autocmd VimEnter,WinEnter * call s:active_ui()
+autocmd WinLeave * call s:inactive_ui()
+function! s:active_ui()
+  set cursorline
+endfunction
+  set colorcolumn=
+function! s:inactive_ui()
+  set nocursorline
+endfunction
+
