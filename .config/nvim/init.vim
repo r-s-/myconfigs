@@ -48,6 +48,7 @@ nnoremap <silent> <Leader>ws :keeppatterns %s/\s\+$//<CR>
 
 " Have . work on visual lines
 vnoremap . :norm.<CR>
+vnoremap @q :normal @q<CR>
 
 nnoremap ; :
 nnoremap : ;
@@ -65,7 +66,10 @@ autocmd WinEnter term://* startinsert
 " =============================================================================
 
 " Y behave like D or C
-nnoremap Y y$
+" nnoremap Y y$
+
+map y <Plug>(operator-flashy)
+nmap Y <Plug>(operator-flashy)$
 
 " Search and Replace
 set ignorecase 
@@ -187,6 +191,11 @@ call plug#begin('~/.nvim/plugged')
 
   " Rselk is the best
   Plug 'rselk/vim-max-split'
+
+  Plug 'haya14busa/vim-operator-flashy'
+  Plug 'kana/vim-operator-user'
+  Plug 'itchyny/screensaver.vim'
+  Plug 'rhysd/nyaovim-mini-browser'
 
 call plug#end()
 
