@@ -45,7 +45,10 @@ vnoremap <silent> <silent> K :call SearchVisualSelectionWithAg()<CR>
 nnoremap <silent> <leader>gl :Commits<CR>
 nnoremap <silent> <leader>ga :BCommits<CR>
 nnoremap <silent> <Leader>ws :keeppatterns %s/\s\+$//<CR>
-nnoremap <silent> <Leader>on :on<CR>
+
+" Have . work on visual lines
+vnoremap . :norm.<CR>
+vnoremap @q :normal @q<CR>
 
 nnoremap ; :
 nnoremap : ;
@@ -56,7 +59,6 @@ imap jj <Esc>
 " =============================================================================
 map <Tab> <C-W>
 
-
 autocmd WinEnter term://* startinsert
 
 " =============================================================================
@@ -64,7 +66,10 @@ autocmd WinEnter term://* startinsert
 " =============================================================================
 
 " Y behave like D or C
-nnoremap Y y$
+" nnoremap Y y$
+
+map y <Plug>(operator-flashy)
+nmap Y <Plug>(operator-flashy)$
 
 " Search and Replace
 set ignorecase 
@@ -86,7 +91,7 @@ set shiftwidth=2
 set autoindent
 filetype on
 filetype plugin indent on
-syntax on
+" syntax on
 
 " Swap
 set noswapfile
@@ -115,8 +120,8 @@ set backspace=2
 
 set t_Co=256
 " Autocomplete 
-highlight Pmenu ctermfg=black ctermbg=white
-highlight PmenuSel ctermfg=red  ctermbg=grey
+" highlight Pmenu ctermfg=black ctermbg=white
+" highlight PmenuSel ctermfg=red  ctermbg=grey
 
 " Line Numbers
 highlight LineNr ctermfg=grey
@@ -130,6 +135,7 @@ set nocursorcolumn
 set scrolljump=5
 set lazyredraw
 set re=1
+
 " =============================================================================
 " Vim-Plug
 " =============================================================================
@@ -140,7 +146,6 @@ call plug#begin('~/.nvim/plugged')
   Plug 'kchmck/vim-coffee-script'
   Plug 'ap/vim-css-color'
   Plug 'vim-ruby/vim-ruby'
-  Plug 'rhysd/clever-f.vim'
   Plug 'scrooloose/nerdtree'
   Plug 'rking/ag.vim'
   Plug 'easymotion/vim-easymotion'
@@ -151,9 +156,10 @@ call plug#begin('~/.nvim/plugged')
   Plug 'tpope/vim-surround'
   Plug 'terryma/vim-multiple-cursors'
   Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-obsession'
     let g:fugitive_git_executable = 'LANG=en_US.UTF-8 git'
   Plug 'junegunn/vim-peekaboo'
-    let g:peekaboo_delay = 600
+    let g:peekaboo_delay = 800
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
   Plug 'junegunn/fzf.vim'
     let g:fzf_action = {
@@ -169,60 +175,87 @@ call plug#begin('~/.nvim/plugged')
   Plug 'kana/vim-textobj-user'
   Plug 'kana/vim-textobj-indent'
   Plug 'nelstrom/vim-textobj-rubyblock'
-  " Plug 'bling/vim-airline'
-  " " {{{
-  " let g:airline_left_sep  = '▓▒░'
-  " let g:airline_right_sep = '░▒▓'
-  " let g:airline_section_z = '%2p%% %2l/%L:%2v'
-  " let g:airline#extensions#syntastic#enabled = 0
-  " let g:airline#extensions#whitespace#enabled = 0
-  " let g:airline_exclude_preview = 1
+  Plug 'bling/vim-airline'
+  " {{{
+  let g:airline_left_sep  = '▓▒░'
+  let g:airline_right_sep = '░▒▓'
+  let g:airline_section_z = '%2p%% %2l/%L:%2v'
+  let g:airline#extensions#syntastic#enabled = 0
+  let g:airline#extensions#whitespace#enabled = 0
+  let g:airline_exclude_preview = 1
+  let g:airline_theme = 'ubaryd'
 
   Plug 'idanarye/vim-merginal'
     nnoremap <leader>gm :MerginalToggle<CR>
-  call plug#end()
+  Plug 'ryanss/vim-hackernews'
+  Plug 'christoomey/vim-tmux-navigator'
 
-  " =============================================================================
-  " Custom Functions
-  " =============================================================================
+  " Rselk is the best
+  Plug 'rselk/vim-max-split'
 
-  function! GitStoryId()
-    normal 3j3WywggpI[#A] 
-  endfunction
+  Plug 'haya14busa/vim-operator-flashy'
+  Plug 'kana/vim-operator-user'
+  Plug 'itchyny/screensaver.vim'
+  Plug 'rhysd/nyaovim-mini-browser'
+  Plug 'AlessandroYorba/Alduin'
 
-  function ToggleSyntax()
-    if exists("g:syntax_on")
-      syntax off
-    else
-      syntax enable
-    endif
-  endfunction
+call plug#end()
 
-  function! SearchWordWithAg()
-    execute 'Ag' expand('<cword>')
-  endfunction
+" =============================================================================
+" Custom Functions
+" =============================================================================
 
-  function! SearchVisualSelectionWithAg() range
-    let old_reg = getreg('"')
-    let old_regtype = getregtype('"')
-    let old_clipboard = &clipboard
-    set clipboard&
-    normal! ""gvy
-    let selection = getreg('"')
-    call setreg('"', old_reg, old_regtype)
-    let &clipboard = old_clipboard
-    execute 'Ag' selection
-  endfunction
+function! GitStoryId()
+  normal 3j3WywggpI[#A] 
+endfunction
 
-  au VimEnter * RainbowParenthesesToggle
-  au Syntax * RainbowParenthesesLoadRound
-  au Syntax * RainbowParenthesesLoadSquare
-  au Syntax * RainbowParenthesesLoadBraces
+function ToggleSyntax()
+  if exists("g:syntax_on")
+    syntax off
+  else
+    syntax enable
+  endif
+endfunction
 
-  set background=dark
-  colorscheme hybrid
+function! SearchWordWithAg()
+  execute 'Ag' expand('<cword>')
+endfunction
+
+function! SearchVisualSelectionWithAg() range
+  let old_reg = getreg('"')
+  let old_regtype = getregtype('"')
+  let old_clipboard = &clipboard
+  set clipboard&
+  normal! ""gvy
+  let selection = getreg('"')
+  call setreg('"', old_reg, old_regtype)
+  let &clipboard = old_clipboard
+  execute 'Ag' selection
+endfunction
 
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
+
+set background=dark
+colorscheme alduin
+
+inoremap {      {}<Left>
+inoremap {<CR>  {<CR>}<Esc>O
+inoremap {{     {
+inoremap {}     {}
+
+" let g:loaded_matchparen=1
+
+" Cursorline on active window
+autocmd VimEnter,WinEnter * call s:active_ui()
+autocmd WinLeave * call s:inactive_ui()
+function! s:active_ui()
+  set cursorline
+endfunction
+  set colorcolumn=
+function! s:inactive_ui()
+  set nocursorline
+endfunction
+
