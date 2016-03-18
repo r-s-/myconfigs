@@ -1,154 +1,207 @@
-"Ryan Selk's .vimrc
+scriptencoding utf-8
 
-"Pathogen for plugin managment
-call pathogen#infect()
-call pathogen#helptags()
-
-"set leader to space
+"Ryan Selk
+" .nvimrc
+"
+" Intended for use with Neovim
+runtime macros/matchit.vim
+" =============================================================================
+" General Key Remappings
+" =============================================================================
 let mapleader = "\<Space>"
-
-"leader commands
-nnoremap <silent> <leader>p :CtrlP<cr>
-nnoremap <leader>l :CtrlPTag<cr>
-nnoremap <leader>o :CtrlPBuffer<cr>
-nnoremap <leader>st :SyntasticToggleMode<cr>
-nnoremap <leader>ne :NERDTree<cr>
-nnoremap <leader>nf :NERDTreeFind<cr>
-nnoremap <leader>gs :Gstatus<cr>
-nnoremap <leader>gc :Gcommit<cr>
+nnoremap <silent> <leader>p :Files<cr>
+nnoremap <silent> <leader>o :Buffers<CR>
+nnoremap <silent> <leader>ne :NERDTree<cr>
+nnoremap <silent> <leader>nf :NERDTreeFind<cr>
+nnoremap <silent> <leader>gs :Gstatus<cr>
+nnoremap <silent> <leader>gc :Gcommit<cr>
 nnoremap <leader>gp :Gpush<cr>
-nnoremap <leader>gb :Gblame<cr>
-nnoremap <leader>gd :Gdiff<cr>
-nnoremap <leader>bb :ls<cr>:buffer<Space>
-nnoremap <leader>t :tabe<cr>
-nnoremap <leader>c :bd<cr>
-nnoremap <leader>ggs :GitGutterToggle<cr>:GitGutterLineHighlightsToggle<cr>
-nnoremap <leader>0 :bn<cr>
-nnoremap <leader>9 :bp<cr>
-nnoremap <leader>1 :bn<cr>
-nnoremap <leader>r :reg<cr>
-nnoremap <leader>in :call I18nTranslateString()<cr>
-nnoremap <leader>gu :GundoToggle<cr>
-nnoremap <leader>ki :call GitStoryId()<cr>
-nnoremap <leader>so :call ToggleSyntax()<cr>
+nnoremap <silent> <leader>gb :Gblame<cr>
+nnoremap <silent> <leader>gd :Gdiff<cr>
+nnoremap <silent> <leader>bb :ls<cr>:buffer<Space>
+nnoremap <silent> <leader>t :tabe<cr>
+nnoremap <silent> <leader>1 :bn<cr>
+nnoremap <silent> <leader>0 :bp<cr>
+nnoremap <silent> <leader>c :bd<cr>
+nnoremap <silent> <leader>ag :Ag 
+nnoremap <silent> <leader>r :reg<cr>
+nnoremap <silent> <leader>ki :call GitStoryId()<cr>
+nnoremap <silent> <leader>so :call ToggleSyntax()<cr>
+nnoremap <silent> <leader>ln :set invrnu<cr>
+nnoremap <silent> <leader>sl :SidewaysLeft<cr>
+nnoremap <silent> <leader>sr :SidewaysRight<cr>
+nnoremap <silent> <leader>h :nohlsearch<CR><Esc>
+nnoremap <silent> <leader>e :term<cr>
+nnoremap <silent> <leader>fb :Buffers<CR>
+nnoremap <silent> <leader>fl :BLines<CR>
+nnoremap <silent> <leader>fL :Lines<CR>
+nnoremap <silent> <leader>ft :BTags<CR>
+nnoremap <silent> <leader>fT :Tags<CR>
+nnoremap <silent> <leader>; :Commands<CR>
+nnoremap <silent> <leader>? :History<CR>
+nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
+nnoremap <silent> <silent> K :call SearchWordWithAg()<CR>
+vnoremap <silent> <silent> K :call SearchVisualSelectionWithAg()<CR>
+nnoremap <silent> <leader>gl :Commits<CR>
+nnoremap <silent> <leader>ga :BCommits<CR>
+nnoremap <silent> <Leader>ws :keeppatterns %s/\s\+$//<CR>
 
-nnoremap <C-N> :set invrnu<cr>
+" Have . work on visual lines
+vnoremap . :norm.<CR>
 
-" tab settings
+nnoremap ; :
+nnoremap : ;
+imap jj <Esc>
+
+" =============================================================================
+" Neovim Terminal Remappings
+" =============================================================================
+map <Tab> <C-W>
+
+"Tmux style maximize
+nnoremap <C-W>m :call MaximizeToggle()<CR>
+ 
+
+autocmd WinEnter term://* startinsert
+
+" =============================================================================
+" Vim Preferences
+" =============================================================================
+
+" Y behave like D or C
+nnoremap Y y$
+
+" Search and Replace
+set ignorecase 
+set smartcase 
+set gdefault 
+
+" Tab
 set tabstop=2 shiftwidth=2 expandtab
 
-"relative numbers by default
+" Numbering
 set number
 set relativenumber
 set autoread
 set hidden
 
-"Auto indentation
+" Indentation
 set cindent
 set shiftwidth=2
 set autoindent
-
-" Smart Case
-set smartcase
-"Allow toggle between regular and relative numbers
-
 filetype on
 filetype plugin indent on
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-syntax on
+" syntax on
 
-"map jj to switch out of insert mode
-imap jj <Esc>
-
-"swap
+" Swap
 set noswapfile
 
-"Switch ; and : keys
-nnoremap ; :
-nnoremap : ;
-
-"Ctrl-p for fuzzy finding
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store,*/vendor,*/tmp/*,*.so,*.swp,*.zip    
-
-" Git gitter default settings
-let g:gitgutter_enabled = 0
-let g:gitgutter_highlight_lines = 0
-
-" Tab for window managment
-map <Tab> <C-W>
-
-"More standard splits
+" Window Splitting
 set splitbelow
 set splitright
 set scrolloff=2
 
-"keep the visual selection active after indenting.
+" Keep the visual selection active after indenting.
 vmap > >gv
 vmap < <gv
 
-" Easy motion settings
-hi EasyMotionTarget ctermbg=gray ctermfg=green
-hi EasyMotionShade  ctermbg=gray ctermfg=blue
-hi EasyMotionTarget2First ctermbg=gray ctermfg=red
-hi EasyMotionTarget2Second ctermbg=gray ctermfg=lightred
-
-map <Space><Space> <Plug>(easymotion-prefix)
-" Use easymotion for search
-map  / <Plug>(easymotion-sn)
-omap / <Plug>(easymotion-tn)
-
-set ignorecase
-
-"save undo history
+"Undo history
 set undofile                " Save undo's after file closes
 set undodir=$HOME/.vim/undo " where to save undo histories
 set undolevels=1000         " How many undos
 set undoreload=10000        " number of lines to save for undo
 
-"colors for text suggestion
+" Allow backspace to delete in insert mode
+set backspace=2
+
+" =============================================================================
+" Style
+" =============================================================================
+
+set t_Co=256
+" Autocomplete 
 highlight Pmenu ctermfg=black ctermbg=white
 highlight PmenuSel ctermfg=red  ctermbg=grey
 
-"change the line numbers to be brighter
+" Line Numbers
 highlight LineNr ctermfg=grey
 hi Visual ctermbg=20
 
-"allow backspace to delete in insert mode
-set backspace=2
-
-"set colorscheme to hybrid
-colorscheme hybrid 
-
-"Nvim specific commands
-if has('nvim')
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  tnoremap <Leader>e <C-\><C-n> 
-  tnoremap <Leader>q <C-\><C-n> 
-  nnoremap <leader>e :term<cr>
-endif
-
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  let g:ctrlp_use_caching = 0
-endif
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_wq = 0
-
-"These settings can speed up vim
+" =============================================================================
+" Performance
+" =============================================================================
 set nocursorline
 set nocursorcolumn
 set scrolljump=5
 set lazyredraw
+set re=1
 
-"Custom Ctrl-p settings
-let g:ctrlp_match_window = 'top,order:ttb,min:1,max:14,results:12'
-let g:ctrlp_show_hidden = 1
+" =============================================================================
+" Vim-Plug
+" =============================================================================
+call plug#begin('~/.nvim/plugged')
+  Plug 'elixir-lang/vim-elixir'
+  Plug 'pangloss/vim-javascript'
+  Plug 'leafgarland/typescript-vim'
+  Plug 'kchmck/vim-coffee-script'
+  Plug 'ap/vim-css-color'
+  Plug 'vim-ruby/vim-ruby'
+  Plug 'scrooloose/nerdtree'
+  Plug 'rking/ag.vim'
+  Plug 'easymotion/vim-easymotion'
+    map <Space><Space> <Plug>(easymotion-prefix)
+  Plug 'tpope/vim-endwise'
+  Plug 'kshenoy/vim-signature'
+  Plug 'AndrewRadev/sideways.vim'
+  Plug 'tpope/vim-surround'
+  Plug 'terryma/vim-multiple-cursors'
+  Plug 'tpope/vim-fugitive'
+    let g:fugitive_git_executable = 'LANG=en_US.UTF-8 git'
+  Plug 'junegunn/vim-peekaboo'
+    let g:peekaboo_delay = 800
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+  Plug 'junegunn/fzf.vim'
+    let g:fzf_action = {
+          \ 'ctrl-s': 'split',
+          \ 'ctrl-v': 'vsplit'
+          \ }
+    let g:fzf_layout = { 'up': '~20%' }
 
-" Custom functions
+  Plug 'w0ng/vim-hybrid'
+  Plug 'tpope/vim-commentary'
+  Plug 'kien/rainbow_parentheses.vim'
+
+  Plug 'kana/vim-textobj-user'
+  Plug 'kana/vim-textobj-indent'
+  Plug 'nelstrom/vim-textobj-rubyblock'
+  Plug 'bling/vim-airline'
+  " {{{
+  " let g:airline_left_sep  = '▓▒░'
+  " let g:airline_right_sep = '░▒▓'
+  " let g:airline_section_z = '%2p%% %2l/%L:%2v'
+  " let g:airline#extensions#syntastic#enabled = 0
+  " let g:airline#extensions#whitespace#enabled = 0
+  " let g:airline_exclude_preview = 1
+
+  Plug 'idanarye/vim-merginal'
+    nnoremap <leader>gm :MerginalToggle<CR>
+  Plug 'ryanss/vim-hackernews'
+  Plug 'christoomey/vim-tmux-navigator'
+  Plug 'NLKNguyen/papercolor-theme'
+  Plug 'ryanoasis/vim-devicons'
+  Plug 'kana/vim-operator-user'
+  Plug 'haya14busa/vim-operator-flashy'
+  Plug 'vim-airline/vim-airline-themes'
+    let g:airline_theme='ubaryd'
+  Plug 'AlessandroYorba/Alduin'
+    let g:alduin_Shout_Fire_Breath = 1
+
+call plug#end()
+
+" =============================================================================
+" Custom Functions
+" =============================================================================
+
 function! GitStoryId()
   normal 3j3WywggpI[#A] 
 endfunction
@@ -161,9 +214,49 @@ function ToggleSyntax()
   endif
 endfunction
 
-set guioptions-=m  "remove menu bar
-set guioptions-=T  "remove toolbar
-set guioptions-=r  "remove right-hand scroll bar
-set guioptions-=L  "remove left-hand scroll bar
+function! SearchWordWithAg()
+  execute 'Ag' expand('<cword>')
+endfunction
 
-let g:ruby_path="/home/rs/.rvm/rubies/ruby-2.2.3/bin/ruby"
+function! SearchVisualSelectionWithAg() range
+  let old_reg = getreg('"')
+  let old_regtype = getregtype('"')
+  let old_clipboard = &clipboard
+  set clipboard&
+  normal! ""gvy
+  let selection = getreg('"')
+  call setreg('"', old_reg, old_regtype)
+  let &clipboard = old_clipboard
+  execute 'Ag' selection
+endfunction
+
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
+set background=dark
+" colorscheme hybrid
+colorscheme alduin
+
+inoremap {      {}<Left>
+inoremap {<CR>  {<CR>}<Esc>O
+inoremap {{     {
+inoremap {}     {}
+
+let g:loaded_matchparen=1
+
+
+function! MaximizeToggle()
+  if exists("s:maximize_session")
+    exe "normal \<C-W>="
+    call delete(s:maximize_session)
+    unlet s:maximize_session
+  else
+    let s:maximize_session = tempname()
+    exe "normal \<C-W>_\<C-W>|"
+  endif
+endfunction
+
+set encoding=utf8
+let g:airline_powerline_fonts = 1
