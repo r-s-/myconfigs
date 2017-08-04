@@ -1,12 +1,14 @@
 scriptencoding utf-8
-
 "Ryan Selk
 " .nvimrc
 "
 " Intended for use with Neovim
 runtime macros/matchit.vim
+highlight Normal ctermfg=grey ctermbg=black
+let g:airline_theme='ubaryd'
+
 " =============================================================================
-" General Key Remappings
+" General Key Mappings
 " =============================================================================
 let mapleader = "\<Space>"
 nnoremap <silent> <leader>p :Files<cr>
@@ -54,19 +56,15 @@ nnoremap ; :
 nnoremap : ;
 imap jj <Esc>
 
-" =============================================================================
-" Neovim Terminal Remappings
-" =============================================================================
 map <Tab> <C-W>
-
 autocmd WinEnter term://* startinsert
 
-" =============================================================================
+
 " Vim Preferences
 " =============================================================================
 
 " Y behave like D or C
-" nnoremap Y y$
+nnoremap Y y$
 
 map y <Plug>(operator-flashy)
 nmap Y <Plug>(operator-flashy)$
@@ -144,7 +142,6 @@ call plug#begin('~/.nvim/plugged')
   Plug 'pangloss/vim-javascript'
   Plug 'leafgarland/typescript-vim'
   Plug 'kchmck/vim-coffee-script'
-  Plug 'ap/vim-css-color'
   Plug 'vim-ruby/vim-ruby'
   Plug 'scrooloose/nerdtree'
   Plug 'rking/ag.vim'
@@ -156,10 +153,7 @@ call plug#begin('~/.nvim/plugged')
   Plug 'tpope/vim-surround'
   Plug 'terryma/vim-multiple-cursors'
   Plug 'tpope/vim-fugitive'
-  Plug 'tpope/vim-obsession'
     let g:fugitive_git_executable = 'LANG=en_US.UTF-8 git'
-  Plug 'junegunn/vim-peekaboo'
-    let g:peekaboo_delay = 800
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
   Plug 'junegunn/fzf.vim'
     let g:fzf_action = {
@@ -167,53 +161,28 @@ call plug#begin('~/.nvim/plugged')
           \ 'ctrl-v': 'vsplit'
           \ }
     let g:fzf_layout = { 'up': '~20%' }
-
   Plug 'w0ng/vim-hybrid'
   Plug 'tpope/vim-commentary'
   Plug 'kien/rainbow_parentheses.vim'
-
   Plug 'kana/vim-textobj-user'
   Plug 'kana/vim-textobj-indent'
   Plug 'nelstrom/vim-textobj-rubyblock'
   Plug 'bling/vim-airline'
-  " {{{
-  let g:airline_left_sep  = '▓▒░'
-  let g:airline_right_sep = '░▒▓'
+  Plug 'vim-airline/vim-airline-themes'
   let g:airline_section_z = '%2p%% %2l/%L:%2v'
   let g:airline#extensions#syntastic#enabled = 0
   let g:airline#extensions#whitespace#enabled = 0
   let g:airline_exclude_preview = 1
-
+  let g:airline_powerline_fonts=1
   Plug 'idanarye/vim-merginal'
     nnoremap <leader>gm :MerginalToggle<CR>
-  Plug 'ryanss/vim-hackernews'
-  Plug 'christoomey/vim-tmux-navigator'
-
-  " Rselk is the best
-  Plug 'rselk/vim-max-split'
-
   Plug 'haya14busa/vim-operator-flashy'
   Plug 'kana/vim-operator-user'
-  Plug 'itchyny/screensaver.vim'
-  Plug 'rhysd/nyaovim-mini-browser'
-
 call plug#end()
 
 " =============================================================================
 " Custom Functions
 " =============================================================================
-
-function! GitStoryId()
-  normal 3j3WywggpI[#A] 
-endfunction
-
-function ToggleSyntax()
-  if exists("g:syntax_on")
-    syntax off
-  else
-    syntax enable
-  endif
-endfunction
 
 function! SearchWordWithAg()
   execute 'Ag' expand('<cword>')
@@ -236,14 +205,6 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
-set background=dark
-colorscheme hybrid 
-
-inoremap {      {}<Left>
-inoremap {<CR>  {<CR>}<Esc>O
-inoremap {{     {
-inoremap {}     {}
-
 let g:loaded_matchparen=1
 
 " Cursorline on active window
@@ -257,3 +218,4 @@ function! s:inactive_ui()
   set nocursorline
 endfunction
 
+colorscheme hybrid 
